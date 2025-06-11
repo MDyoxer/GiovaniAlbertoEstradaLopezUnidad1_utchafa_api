@@ -1,6 +1,6 @@
 <?php 
 require_once __DIR__ . '/../include/api-tareas.php';
-        
+require_once __DIR__ . '/../cors-headers.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
