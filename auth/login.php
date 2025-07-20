@@ -1,13 +1,27 @@
 <?php
-header("Content-Type: application/json");
-require_once '../conn/db_conn.php';
-require_once __DIR__ . '/../cors-headers.php';
 
-// Headers de seguridad básicos
+
+// Headers CORS (PRIMERAS LÍNEAS, sin espacios antes de <?php)
+header("Access-Control-Allow-Origin: https://utchafaa.web.app");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header("Access-Control-Allow-Credentials: true");
+header("Content-Type: application/json"); // Luego el Content-Type
+
+// Respuesta para Preflight (OPTIONS)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit();
+}
+
+// Headers de seguridad (después de CORS)
 header("X-Content-Type-Options: nosniff");
 header("X-Frame-Options: DENY");
 header("X-XSS-Protection: 1; mode=block");
 header("Content-Security-Policy: default-src 'self'");
+
+require_once '../conn/db_conn.php';
+//require_once __DIR__ . '/../cors-headers.php';
 
 
 $database = new Database();
